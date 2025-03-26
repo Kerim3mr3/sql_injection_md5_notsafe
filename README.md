@@ -1,8 +1,23 @@
 # SQL Injection MD5 Not Safe
 
+## İçindekiler
+- [Proje Hakkında](#proje-hakkinda)
+- [Proje Amacı](#proje-amaci)
+- [Kullanılan Araçlar ve Teknolojiler](#kullanim-araclar-ve-teknolojiler)
+- [Proje Görselleri](#proje-gorselleri)
+- [Kullanım Talimatları](#kullanim-talimatlari)
+  - [Gereksinimler](#1-gereksinimler)
+  - [Kurulum](#2-kurulum)
+- [SQL Injection Deneme Komutları](#sql-injection-deneme-komutlari)
+- [Hashcat Kullanımı](#hashcat-kullanimi)
+
+---
+
 ## Proje Hakkında
 
 Bilişim Güvenliği Teknolojileri bölümü öğrencileri olarak **Kriptoloji** dersinde, güvensiz şifreleme algoritmalarının veri tabanında kullanılması sonucu doğurabileceği güvenlik zaafiyetlerini **SQL Injection** güvenlik açığı üzerinden göstermeyi amaçladık. Bu projede, **MD5** şifreleme algoritmasının SQL Injection saldırılarıyla nasıl güvenlik açığı oluşturduğunu ve bu açığın nasıl istismar edilebileceğini inceleyeceğiz.
+
+Bu projede **login.html** ve **vulnerable_login.html** olmak üzere iki adet endpoint bulunmaktadır. Burada amaç, **parametresiz SQL sorgularının doğurduğu güvenlik açığını** göstermektir. **Dikkat:** *login.html tamamen güvenli değildir*. Buradaki asıl amaç, **SQL güvenlik zaafiyetine neden olan doğrudan ve parametresiz SQL sorgulamalarını** açıklamaktır.
 
 ---
 
@@ -76,7 +91,7 @@ npm install express sqlite3 body-parser express-session crypto dotenv
 ```
 Sunucuyu başlatmak için:
 ```bash
-node server.js
+node server.js 
 # veya
 npm start
 ```
@@ -89,6 +104,10 @@ SQLMap kullanarak SQL Injection saldırısı:
 ```bash
 py sqlmap.py -u "http://localhost:3000/vulnerable_login" --method POST --data "username=test&password=test" --dump-all --batch --flush-session
 ```
+
+---
+
+## Hashcat Kullanımı
 
 Elde edilen hash’in türünü belirlemek için Hashcat kullanımı:
 ```bash
