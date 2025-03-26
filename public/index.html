@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araç Tanıtım Sitesi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a href="/">Ana Sayfa</a>
+        <a href="/login" id="loginLink">Giriş Yap</a>
+        <a href="/register" id="registerLink">Kayıt Ol</a>
+        <a href="/about">Hakkımızda</a>
+        <a href="/logout" id="logoutLink" style="display: none;">Çıkış Yap</a>
+        <span id="welcomeText" style="margin-left: 10px; font-weight: bold;"></span>
+    </nav>
+    
+    <script>
+        // Sayfa yüklendiğinde oturum durumunu kontrol et
+        fetch('/session')
+            .then(response => response.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    document.getElementById('loginLink').style.display = 'none';
+                    document.getElementById('registerLink').style.display = 'none';
+                    document.getElementById('logoutLink').style.display = 'inline';
+                    document.getElementById('welcomeText').textContent = `Hoşgeldin, ${data.username}`;
+                } else {
+                    document.getElementById('logoutLink').style.display = 'none';
+                }
+            });
+    </script>
+
+    <h1>Premium Araç Koleksiyonumuz</h1>
+    <div class="product-list">
+        <div class="product">
+            <h2>Uzgun Araba</h2>
+            <img src="images/uzgun_araba.jpeg" alt="2023 Model Sedan" class="product-image">
+            <p>Fiyat: 170.000 TL</p>
+            <p>Özellikler: Depresyon, Anksiyete, 50 HP, Tam manuel</p>
+        </div>
+        <div class="product">
+            <h2>Çıtır Hasarlı İlk Sahibinden 2008 Civic</h2>
+            <img src="images/citir_hasarli.jpg" alt="2023 Model Sedan" class="product-image">
+            <p>Fiyat: 670.000 TL</p>
+            <p>Özellikler: AĞIR HASAR KAYDI YOKTUR, İLK SAHİBİNDEN TEMİZ BAKIMLI ARAÇ</p>
+        </div>
+        <div class="product">
+            <h2>70Bin TL Aksesuarlı Modifiyeli TOFAŞ</h2>
+            <img src="images/tofas.jpeg" alt="2023 Model Sedan" class="product-image">
+            <p>Fiyat: 250.000TL</p>
+            <p>Özellikler:TÜM PARÇALAR FABRİKA ÇIKIŞLI ORJİNAL, İLK SAHİBİNDEN</p>
+        </div>
+        <div class="product">
+            <h2>Kawasaki Ninja H2r</h2>
+            <img src="images/ninjah2r.jpeg" alt="2023 Model Sedan" class="product-image">
+            <p>Fiyat: 2.700.000TL</p>
+            <p>Özellikler: Aynaları yok...</p>
+        </div>
+        <div class="product">
+            <h2>Bayan Öğretmenden Satılık Clio</h2>
+            <img src="images/renault_clio.jpg" alt="2023 Model Sedan" class="product-image">
+            <p>Fiyat: 350.000TL</p>
+            <p>Özellikler: Bayan arabası olması yeterli</p>
+        </div>
+    </div>
+</body>
+<footer style="background-color: #ffd700; padding: 20px; text-align: center; margin-top: 40px;">
+    <p>© 2025 Araç Tanıtım Sitesi. Tüm hakları açık kaynaktır ve Allah'a emanettir.</p>
+    <div>
+        <a href="#" style="color: #333; margin: 0 10px;">Gizlilik Politikası</a>
+        <a href="#" style="color: #333; margin: 0 10px;">Kullanım Şartları</a>
+    </div>
+</footer>
+</html>

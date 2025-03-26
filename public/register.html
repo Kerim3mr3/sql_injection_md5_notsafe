@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Araç Tanıtım - Kayıt Ol</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a href="/">Ana Sayfa</a>
+        <a href="/login" id="loginLink">Giriş Yap</a>
+        <a href="/register" id="registerLink">Kayıt Ol</a>
+        <a href="/about">Hakkımızda</a>
+        <a href="/logout" id="logoutLink" style="display: none;">Çıkış Yap</a>
+        <span id="welcomeText" style="margin-left: 10px; font-weight: bold;"></span>
+    </nav>
+    
+    <script>
+        // Sayfa yüklendiğinde oturum durumunu kontrol et
+        fetch('/session')
+            .then(response => response.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    document.getElementById('loginLink').style.display = 'none';
+                    document.getElementById('registerLink').style.display = 'none';
+                    document.getElementById('logoutLink').style.display = 'inline';
+                    document.getElementById('welcomeText').textContent = `Hoşgeldin, ${data.username}`;
+                } else {
+                    document.getElementById('logoutLink').style.display = 'none';
+                }
+            });
+    </script>
+
+    <div class="auth-container">
+        <div class="auth-form">
+            <h1><span class="gold-text">Kayıt Ol</span></h1>
+            <p>Yeni bir hesap oluşturmak için bilgilerinizi girin</p>
+            
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="username">Kullanıcı Adı</label>
+                    <input type="text" id="username" name="username" required placeholder="Kullanıcı adınızı girin">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">E-Posta</label>
+                    <input type="email" id="email" name="email" required placeholder="ornek@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Şifre</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn-login">Kayıt Ol</button>
+                
+                <div class="auth-footer">
+                    Zaten hesabınız var mı? <a href="/login" class="gold-link">Giriş Yap</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

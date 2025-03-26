@@ -1,0 +1,264 @@
+/* Genel Stiller */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fffaf0;
+  color: #333;
+}
+
+/* Navigasyon Çubuğu */
+nav {
+  background-color: #ffd700;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin-right: 15px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #ffc800;
+  color: #000;
+}
+
+/* Başlık */
+h1 {
+  text-align: center;
+  color: #d4a017;
+  margin: 30px 0;
+  font-size: 2.5em;
+}
+
+/* Ürün Listesi */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid #ffd700;
+}
+
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product h2 {
+  color: #d4a017;
+  margin-top: 0;
+}
+
+.product p {
+  font-size: 1.1em;
+  color: #555;
+}
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+}
+
+/* Auth Sayfaları İçin Stiller */
+.auth-container {
+  display: flex;
+  min-height: calc(100vh - 60px);
+  align-items: center;
+  background-color: #fffaf0;
+}
+
+.auth-form {
+  flex: 1;
+  max-width: 500px;
+  padding: 40px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #ffd700;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.forgot-password {
+  display: block;
+  text-align: right;
+  margin-top: 8px;
+  color: #777;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: #ffd700;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background-color: #ffd700;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.btn-login:hover {
+  background-color: #e6c200;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+.gold-link {
+  color: #d4a017;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.gold-link:hover {
+  text-decoration: underline;
+}
+
+.gold-text {
+  color: #d4a017;
+}
+
+/* Footer Stili */
+footer {
+  background-color: #ffd700;
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer a {
+  color: #333;
+  margin: 0 10px;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  nav a {
+    margin: 5px 0;
+  }
+  
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product {
+    width: 80%;
+  }
+
+  .auth-container {
+    flex-direction: column;
+  }
+  
+  .auth-form {
+    width: 90%;
+    margin: 30px auto;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Kayıt formu için ekstra stiller (zaten auth-form class'ı tanımlı) */
+.btn-login {
+  /* Giriş yap butonuyla aynı stil kayıt ol butonu için de kullanılacak */
+  width: 100%;
+  padding: 14px;
+  background-color: #ffd700;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.btn-login:hover {
+  background-color: #e6c200;
+}
+
+/* E-posta inputu için ekstra stil */
+input[type="email"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border 0.3s;
+}
+
+input[type="email"]:focus {
+  border-color: #ffd700;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
