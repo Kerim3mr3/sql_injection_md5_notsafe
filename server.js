@@ -65,39 +65,45 @@ app.post('/register', (req, res) => {
     });
 });
 
-// Giriş işlemi (Normal arayüz)
+// KASITLI SQL INJECTION AÇIĞI (SQLMap testleri için)
+app.post('/vulnerable_login', (req, res) => {
+    const { username, password } = req.body;
+    
+    // KASITLI SQL INJECTION (MD5 hash bypass ile)
+    const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${md5(password)}'`;
+    
+    db.get(query, (err, row) => {
+        if (err) {
+            // SQLMap'in error-based tekniği için hata döndür
+            return res.status(500).json({ error: err.message, query });
+        }
+        
+        // SQLMap'in boolean-based tekniği için net TRUE/FALSE yanıtı
+        res.json({ 
+            success: !!row, 
+            query,
+            user: row || null 
+        });
+    });
+});
+
+// GÜVENLİ LOGIN (Parametreli Sorgu)
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     const hashedPassword = md5(password);
     
-    db.get(`SELECT * FROM users WHERE username = '${username}' AND password = '${hashedPassword}'`, 
-    (err, row) => {
-        if (err) return res.status(500).send('Sunucu hatası');
-        
-        if (row) {
-            req.session.user = row;
-            return res.redirect('/');
+    db.get(
+        `SELECT * FROM users WHERE username = ? AND password = ?`,
+        [username, hashedPassword],
+        (err, row) => {
+            if (err) return res.status(500).send("Database error");
+            if (row) {
+                req.session.user = row;
+                return res.redirect('/');
+            }
+            res.send("Giriş başarısız!");
         }
-        
-        res.send(`
-            <h2>Giriş Başarısız</h2>
-            <p>Kullanıcı adı veya şifre hatalı</p>
-            <a href="/login">Tekrar Dene</a>
-        `);
-    });
-    // SQL Injection Açığı: Kullanıcı girdileri (username, password) doğrudan sorguya ekleniyor
-    // Örneğin: username = ' OR 1=1 -- girilirse şifresiz giriş yapılabilir
-});
-
-// SQLMap testleri için özel endpoint
-app.post('/vulnerable_login', (req, res) => {
-    const { username, password } = req.body;
-    const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${md5(password)}'`;
-    
-    db.get(query, (err, row) => {
-        if (err) return res.status(500).send(query + "\n" + err.message);
-        res.send(row ? "TRUE\n" + query : "FALSE\n" + query);
-    });
+    );
 });
 
 // Oturum bilgisi

@@ -2,21 +2,21 @@
 
 ## Proje Hakkında
 
-Bilişim Güvenliği Teknolojileri bölümü öğrencileri olarak **Kriptoloji** dersinde, güvensiz şifreleme algoritmalarının veri tabanında kullanılması sonucu doğurabileceği güvenlik zaafiyetlerini SQL Injection güvenlik zafiyeti üzerinden göstermeyi amaçladık. Bu projede, **MD5** şifreleme algoritmasının SQL Injection saldırılarıyla nasıl güvenlik açığı oluşturduğunu ve bu açığın nasıl istismar edilebileceğini inceleyeceğiz.
+Bilişim Güvenliği Teknolojileri bölümü öğrencileri olarak **Kriptoloji** dersinde, güvensiz şifreleme algoritmalarının veri tabanında kullanılması sonucu doğurabileceği güvenlik zaafiyetlerini **SQL Injection** güvenlik açığı üzerinden göstermeyi amaçladık. Bu projede, **MD5** şifreleme algoritmasının SQL Injection saldırılarıyla nasıl güvenlik açığı oluşturduğunu ve bu açığın nasıl istismar edilebileceğini inceleyeceğiz.
 
 ---
 
 ## Proje Amacı
 
-Bu proje, güvensiz bir şekilde uygulama içinde MD5 gibi kırılgan şifreleme algoritmalarının kullanımının güvenlik risklerini vurgulamaktadır. **SQL Injection** saldırıları kullanılarak veritabanındaki şifreler kırılmaya çalışılacak ve veri tabanındaki hassas bilgilere ulaşılabilecektir. Proje, bu tür saldırılardan korunma yolları üzerine bir farkındalık yaratmayı hedeflemektedir.
+Bu proje, güvensiz bir şekilde uygulama içinde **MD5** gibi kırılgan şifreleme algoritmalarının kullanımının güvenlik risklerini vurgulamaktadır. **SQL Injection** saldırıları kullanılarak veritabanındaki şifreler kırılmaya çalışılacak ve veri tabanındaki hassas bilgilere ulaşılabilecektir. Proje, bu tür saldırılardan korunma yolları üzerine farkındalık yaratmayı hedeflemektedir.
 
 ---
 
 ## Kullanılan Araçlar ve Teknolojiler
 
 - **MD5 (Message Digest Algorithm 5):** Güvensiz şifreleme algoritması olarak kullanılmaktadır.
-- **SQLMap:** SQL Injection zafiyetlerini keşfetmek ve istismar etmek için kullanılan bir açık kaynak aracı.
-- **Hashcat:** Şifre çözme (cracking) aracı, şifreli veriler üzerinde brute force saldırıları gerçekleştirerek zayıf şifreleme algoritmalarını çözmek için kullanılır.
+- **SQLMap:** SQL Injection zafiyetlerini keşfetmek ve istismar etmek için kullanılan açık kaynaklı bir araç.
+- **Hashcat:** Şifre çözme (cracking) aracı. Şifreli veriler üzerinde brute force saldırıları gerçekleştirerek zayıf şifreleme algoritmalarını çözmek için kullanılır.
 
 ---
 
@@ -24,17 +24,29 @@ Bu proje, güvensiz bir şekilde uygulama içinde MD5 gibi kırılgan şifreleme
 
 Aşağıda projenin çalışmasıyla ilgili bazı görseller yer almaktadır:
 
-![SQL Injection Görseli](path/to/sql_injection_image.png)
+![Ana Sayfa](readme_images/index.png)
+*Ana Sayfa*
+
+![Giriş Ekranı](readme_images/giris_yap.png)
+*Giriş Ekranı*
+
+![Kayıt Ekranı](readme_images/kayit_ol.png)
+*Kayıt Ekranı*
+
+![SQL Injection Saldırısı](readme_images/sqlmap-1.png)
 *SQL Injection Saldırısı*
 
-![MD5 Hash Görseli](path/to/md5_hash_example.png)
-*MD5 Hash Örneği*
+![SQL Injection Saldırısı](readme_images/sqlmap-2.png)
+*SQL Injection Saldırısı*
 
-![Hashcat Kullanımı](path/to/hashcat_image.png)
+![Hashcat Kullanımı](readme_images/hashcat-1.png)
 *Hashcat Aracı Kullanımı*
 
-![SQLMap Kullanımı](path/to/sqlmap_image.png)
-*SQLMap Aracı Kullanımı*
+![Hashcat Sonucu](readme_images/hashcat-2.png)
+*Hashcat hash değerimizi buldu*
+
+![Bulunan Hash Değeri](readme_images/hash.png)
+*Bulunan hash değerimiz*
 
 ---
 
@@ -44,13 +56,47 @@ Aşağıda projenin çalışmasıyla ilgili bazı görseller yer almaktadır:
 Projeyi çalıştırabilmek için aşağıdaki yazılımların sisteminizde kurulu olması gerekmektedir:
 
 - Python 3.x
-- SQLMap (https://github.com/sqlmapproject/sqlmap)
-- Hashcat (https://hashcat.net/hashcat/)
+- Node.js
+- SQLMap ([Buradan İndir](https://github.com/sqlmapproject/sqlmap))
+- Hashcat ([Buradan İndir](https://hashcat.net/hashcat/))
 
 ### 2. Kurulum
 
-Projenin kullanılabilir olması için öncelikle gerekli dosyaları ve araçları kurmanız gerekmektedir.
+Öncelikle Node.js’in bilgisayarınıza yüklü olduğundan emin olun.
+[Node.js İndir](https://nodejs.org/en/download)
 
+Ardından projeyi GitHub üzerinden klonlayın:
 ```bash
 git clone https://github.com/Kerim3mr3/sql_injection_md5_notsafe.git
 cd sql_injection_md5_notsafe
+```
+Gerekli bağımlılıkları yükleyin:
+```bash
+npm install express sqlite3 body-parser express-session crypto dotenv
+```
+Sunucuyu başlatmak için:
+```bash
+node server.js
+# veya
+npm start
+```
+
+---
+
+## SQL Injection Deneme Komutları
+
+SQLMap kullanarak SQL Injection saldırısı:
+```bash
+py sqlmap.py -u "http://localhost:3000/vulnerable_login" --method POST --data "username=test&password=test" --dump-all --batch --flush-session
+```
+
+Elde edilen hash’in türünü belirlemek için Hashcat kullanımı:
+```bash
+hashcat --identify <hash_value>
+```
+
+MD5 hash kırmak için Hashcat kullanımı:
+```bash
+hashcat -m 0 -a 3 -d 1 -w 4 -o cracked.txt --show hash.txt ?a?a?a?a?a
+```
+

