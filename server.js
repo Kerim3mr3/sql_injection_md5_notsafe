@@ -16,6 +16,13 @@ app.use(session({
     cookie: { secure: false }
 }));
 
+// Middleware'ler bölümüne ekleyin (session middleware'inden sonra)
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Middleware'ler bölümüne ekleyin (session middleware'inden sonra)
+app.use(express.static(__dirname + '/public'));
+
+
 // Veritabanı bağlantısı
 const db = new sqlite3.Database(process.env.DB_PATH, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) console.error('Veritabanı hatası:', err);
@@ -78,6 +85,8 @@ app.post('/login', (req, res) => {
             <a href="/login">Tekrar Dene</a>
         `);
     });
+    // SQL Injection Açığı: Kullanıcı girdileri (username, password) doğrudan sorguya ekleniyor
+    // Örneğin: username = ' OR 1=1 -- girilirse şifresiz giriş yapılabilir
 });
 
 // SQLMap testleri için özel endpoint
